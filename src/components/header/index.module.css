@@ -1,0 +1,32 @@
+.navigation {    
+    margin: 0;
+    padding: 0;
+    background-color: #7fdbda;
+    height: 100px;
+}
+
+.wrapper {
+    float: right;
+    padding: 40px;;
+}
+
+.link {
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+    font-weight: bold;
+    margin: 0 1em;    
+}
+
+.link:hover {    
+    color: #ede682;
+}
+
+.logo-image {
+    width: 80px;
+    height: 80px;
+    padding: 1em;
+    float: left;
+}
