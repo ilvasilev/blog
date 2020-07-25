@@ -1,10 +1,13 @@
 import React from 'react'
-import Header from '../../header'
+import Wrapper from '../../wrapper'
+import Posts from '../../posts'
 
 const HomePage = () => {
-    return ( 
-        <Header />
-
+    return (
+        <Wrapper>
+          <h1>My personal Blog</h1>
+          <Posts />  
+        </Wrapper>
     )
 }
 
