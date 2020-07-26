@@ -1,0 +1,17 @@
+.center-input {    
+    text-align: center;
+    border-color: red;
+    padding: 10px;
+  }
+
+.area-input {
+  color: grey;
+  width: 500px;
+  height: 50px;
+  padding-left: 20px;
+}
+
+.label-span {
+  padding-right: 15px;
+  color: #0E6E6C;
+}
