@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import styles from './index.module.css'
 import Wrapper from '../../components/wrapper'
 import Title from '../../components/title'
 import Input from '../../components/input'
-
+import SubmitButton from '../../components/button'
 class LoginPage extends Component {
 
   constructor(props) {
@@ -27,6 +28,7 @@ class LoginPage extends Component {
     
     return (
         <Wrapper>
+          <div className={styles.container}>
           <Title title={'Login page'} />
           <Input
           value={email}
@@ -40,6 +42,8 @@ class LoginPage extends Component {
           label='Password'
           id='password'
           />
+          <SubmitButton title='Login' />
+          </div>
         </Wrapper>
     )
   }

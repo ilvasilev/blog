@@ -18,7 +18,7 @@ const Navigation = () => {
         <Switch>
             <Route path='/' exact component={HomePage} />
             <Route path='/publications' component={Publications} />
-            <Route path='/profile' component={ProfilePage} />
+            <Route path='/profile/:userid' component={ProfilePage} />
             <Route path='/register' component={RegisterPage} />
             <Route path='/login' component={LoginPage} />
             <Route path='/logout' component={HomePage} />
