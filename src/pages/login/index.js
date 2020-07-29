@@ -4,46 +4,64 @@ import Wrapper from '../../components/wrapper'
 import Title from '../../components/title'
 import Input from '../../components/input'
 import SubmitButton from '../../components/button'
+import authenticate from '../../utils/authenticate/authenticate'
 class LoginPage extends Component {
 
   constructor(props) {
     super(props)
 
     this.state = {
-      email: '',
+      username: '',
       password: ''
     }
   }
 
-  onChange = (event, type) => {
+  handleChange = (event, type) => {
     const newState = {}
-    newState[type] = event.value
+    newState[type] = event.target.value
 
     this.setState(newState)
   }
 
+  handleSubmit = async (event) => {
+    event.preventDefault()
+
+    const {username, password} = this.state
+    
+    await authenticate('http://localhost:9999/api/user/login', {
+        username,
+        password
+      }, (user) => {        
+        this.props.history.push('/')
+      }, (e) => {
+        console.log('Error', e)
+      }
+    )
+    
+  }
+
   render() {
-    const {email,
-    password} = this.state
+    const {username, password} = this.state
     
     return (
         <Wrapper>
-          <div className={styles.container}>
           <Title title={'Login page'} />
+          <form className={styles.container} onSubmit={this.handleSubmit}>
           <Input
-          value={email}
-          onChange={(e) => this.onChange(e, 'email')}
-          label='E-mail'
-          id='email'
+          value={username}
+          onChange={(e) => this.handleChange(e, 'username')}
+          label='Username'
+          id='username'
           />
           <Input
+          type="password"
           value={password}
-          onChange={(e) => this.onChange(e, 'password')}
+          onChange={(e) => this.handleChange(e, 'password')}
           label='Password'
           id='password'
           />
           <SubmitButton title='Login' />
-          </div>
+          </form>
         </Wrapper>
     )
   }
