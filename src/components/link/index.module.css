@@ -1,0 +1,19 @@
+.wrapper {
+    float: right;
+    padding: 40px 20px 40px 20px;
+    
+}
+
+.link {
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+    font-weight: bold;
+    margin: 0 1em;    
+}
+
+.link:hover {    
+    color: #ede682;
+}

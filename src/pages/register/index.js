@@ -5,6 +5,7 @@ import Title from '../../components/title'
 import Input from '../../components/input'
 import SubmitButton from '../../components/button'
 import authenticate from '../../utils/authenticate/authenticate'
+import UserContext from '../../Context'
 
 class RegisterPage extends Component {
 
@@ -17,6 +18,8 @@ class RegisterPage extends Component {
       rePassword: ''
     }
   }
+
+  static contextType = UserContext
 
   handleChange = (event, type) => {
     const newState = {}
@@ -33,7 +36,8 @@ class RegisterPage extends Component {
     await authenticate('http://localhost:9999/api/user/register', {
         username,
         password
-      }, (user) => {        
+      }, (user) => {     
+        this.context.logIn(user)   
         this.props.history.push('/')
       }, (e) => {
         console.log('Error', e)

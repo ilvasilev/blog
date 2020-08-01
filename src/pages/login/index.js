@@ -5,6 +5,7 @@ import Title from '../../components/title'
 import Input from '../../components/input'
 import SubmitButton from '../../components/button'
 import authenticate from '../../utils/authenticate/authenticate'
+import UserContext from '../../Context'
 class LoginPage extends Component {
 
   constructor(props) {
@@ -16,6 +17,8 @@ class LoginPage extends Component {
     }
   }
 
+  static contextType = UserContext
+
   handleChange = (event, type) => {
     const newState = {}
     newState[type] = event.target.value
@@ -26,12 +29,13 @@ class LoginPage extends Component {
   handleSubmit = async (event) => {
     event.preventDefault()
 
-    const {username, password} = this.state
+    const {username, password} = this.state    
     
     await authenticate('http://localhost:9999/api/user/login', {
         username,
         password
       }, (user) => {        
+        this.context.logIn(user)     
         this.props.history.push('/')
       }, (e) => {
         console.log('Error', e)

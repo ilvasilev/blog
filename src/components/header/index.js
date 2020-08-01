@@ -1,9 +1,45 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, {Component} from 'react'
+import Link from '../link'
 import logo from '../../images/logo.png'
 import styles from './index.module.css'
+import getNavigation from '../../utils/navigation'
+import UserContext from '../../Context'
 
-const Header = () => {
+class Header extends Component {
+
+    static contextType = UserContext
+  
+    render() {
+      const {
+        loggedIn,
+        user
+      } = this.context
+      
+      const links = getNavigation(loggedIn, user)
+  
+      return (
+        <header className={styles.navigation}>
+          <img className={styles['logo-image']} src={logo} />
+          {
+            links.map(navElement => {
+              return (
+                <Link
+                  key={navElement.title}
+                  href={navElement.link}
+                  title={navElement.title}
+                  type="header"
+                />
+              )
+            })
+          }
+        </header>
+      )
+    }
+  }
+  
+  export default Header
+
+/*const Header = () => {
     return (
         <header className={styles.navigation}>
             <img src={logo} className={styles['logo-image']} />
@@ -17,6 +53,4 @@ const Header = () => {
     </div>
         </header>
     )
-}
-
-export default Header
+}*/
