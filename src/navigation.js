@@ -9,7 +9,7 @@ import Publications from './pages/publications'
 import ProfilePage from './pages/profile'
 import RegisterPage from './pages/register'
 import LoginPage from './pages/login'
-import CreatePublication from './pages/create-publication'
+import CreateArticlePage from './pages/create-article'
 
 
 const Navigation = () => {
@@ -22,7 +22,7 @@ const Navigation = () => {
             <Route path='/register' component={RegisterPage} />
             <Route path='/login' component={LoginPage} />
             <Route path='/logout' component={HomePage} />
-            <Route path='/create' component={CreatePublication} />
+            <Route path='/create' component={CreateArticlePage} />
         </Switch>
         </BrowserRouter>
     )
