@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
 import Wrapper from '../../components/wrapper'
-import Posts from '../../components/posts'
+import Origamis from '../../components/origamis'
 import Title from '../../components/title'
 import UserContext from '../../Context'
 
 class HomePage extends Component {
   static contextType = UserContext
   
-  render () {
-    console.log(this.context)
+  render () {    
     return (
         <Wrapper>
           <Title title={'Home page'} />
-          <Posts />  
+          <Origamis />  
         </Wrapper>
     )
   }
