@@ -10,6 +10,7 @@ import ProfilePage from './pages/profile'
 import RegisterPage from './pages/register'
 import LoginPage from './pages/login'
 import CreateArticlePage from './pages/create-article'
+import SingleArticle from './pages/single-article'
 
 
 const Navigation = () => {
@@ -19,6 +20,7 @@ const Navigation = () => {
             <Route path='/' exact component={HomePage} />
             <Route path='/publications' component={Publications} />
             <Route path='/profile/:userid' component={ProfilePage} />
+            <Route path='/article/:articleid' component={SingleArticle} />
             <Route path='/register' component={RegisterPage} />
             <Route path='/login' component={LoginPage} />
             <Route path='/logout' component={HomePage} />

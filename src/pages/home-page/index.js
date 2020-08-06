@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Wrapper from '../../components/wrapper'
-import Origamis from '../../components/origamis'
+import Articles from '../../components/articles'
 import Title from '../../components/title'
 import UserContext from '../../Context'
 
@@ -11,7 +11,7 @@ class HomePage extends Component {
     return (
         <Wrapper>
           <Title title={'Home page'} />
-          <Origamis />  
+          <Articles />  
         </Wrapper>
     )
   }

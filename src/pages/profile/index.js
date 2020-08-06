@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import Wrapper from '../../components/wrapper'
-import Title from '../../components/title'
+import Article from '../../components/article'
 
 class ProfilePage extends Component {
-
   constructor(props) {
     super(props)
 
     this.state = {
       username: null,
-      posts: null
+      posts: null,
+      postPerUser: []
     }
   }
 
@@ -18,31 +18,56 @@ class ProfilePage extends Component {
   }
 
   getUser = async (id) => {
-    const response = await fetch(`http://localhost:9999/api/user?id=${id}`)
-    
-    const user = await response.json()
+    const response = await fetch(`http://localhost:9999/api/user?id=${id}`)    
+    if(!response.ok) {
+      this.props.history.push('/error')
+    }
 
-    console.log(user)
-
+    const user = await response.json()    
     this.setState({
       username: user.username,
-      posts: user.posts
+      posts: user.posts && user.posts.length,
+      postPerUser: user.posts
     })
   }
-    
+
+  renderPosts() {
+    const { postPerUser } = this.state
+    return postPerUser.map((posts, index) => {
+      return (
+        <Article key={posts._id} index={index} {...posts} />
+      )
+    })
+     
+  }
+
   render() {
     const {
       username,
       posts
     } = this.state
-    return (
-          <Wrapper>
-            <Title title={'Profile page'} />
-            <div>
-              <p>Username: {username}</p>
-              </div>       
-          </Wrapper>
+
+
+
+    if(!username) {
+      return (
+        <Wrapper>
+          <div>Loading....</div>
+        </Wrapper>
       )
+    }
+
+    
+
+    return (
+      <Wrapper>
+        <div>
+          <p>User: {username}</p>
+          <p>Posts: {posts}</p>
+        </div>
+        {this.renderPosts()}
+      </Wrapper>
+    )
   }
 }
 

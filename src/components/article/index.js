@@ -16,7 +16,7 @@ const Origam = ({ title, content, imageUrl, author, _id }) => {
       <p >      
         {author.username}
       </p>
-      <a href={`/publications/${_id}`}>See more</a>
+      <a href={`/article/${_id}`}>See more</a>
     </div>
   )
 }

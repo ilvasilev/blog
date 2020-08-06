@@ -1,13 +1,13 @@
 import React from 'react'
 import Wrapper from '../../components/wrapper'
-import Origamis from '../../components/origamis'
+import Articles from '../../components/articles'
 import Title from '../../components/title'
 
 const Publications = () => {
     return (
         <Wrapper>
           <Title title={'Publications'} />
-          <Origamis />  
+          <Articles />  
         </Wrapper>
     )
 }
