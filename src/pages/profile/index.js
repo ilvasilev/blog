@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Wrapper from '../../components/wrapper'
-import Article from '../../components/article'
+import ArticleCard  from '../../components/article-card'
 
 class ProfilePage extends Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class ProfilePage extends Component {
     const { postPerUser } = this.state
     return postPerUser.map((posts, index) => {
       return (
-        <Article key={posts._id} index={index} {...posts} />
+        <ArticleCard key={posts._id} index={index} {...posts} />
       )
     })
      

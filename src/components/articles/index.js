@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styles from './index.module.css'
-import Article from '../article'
+import ArticleCard from '../article-card'
 
 class Articles extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class Articles extends Component {
     return articles.map((article, index) => {
       console.log('aA', article)
       return (
-        <Article key={article._id} index={index} {...article} />
+        <ArticleCard key={article._id} index={index} {...article} />
       )
     })
   }

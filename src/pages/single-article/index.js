@@ -3,6 +3,8 @@ import styles from './index.module.css'
 import Wrapper from '../../components/wrapper'
 import Title from '../../components/title'
 import Article from '../../components/article'
+import Input from '../../components/input'
+import Button from '../../components/button'
 
 class SingleArticle extends Component {
   constructor(props) {
@@ -32,12 +34,17 @@ class SingleArticle extends Component {
 
   render() {
     return (
-      <Wrapper>      
-      <p>{this.state.singleArticle.title}</p>
-      <p>{this.state.singleArticle.content}</p>
-      <p>{this.state.singleArticle.imageUrl}</p>
-      <p>{this.state.author}</p>
-      
+      <Wrapper>
+        <Title title={this.state.singleArticle.title} />
+        <div className={styles.container}>
+        <Article        
+        content={this.state.singleArticle.content}
+        imageUrl={this.state.singleArticle.imageUrl}
+        author={this.state.author}
+        />        
+        <Input label={this.state.author} />
+        <Button title='Reply to this article' />
+        </div>        
       </Wrapper> 
     )
   }

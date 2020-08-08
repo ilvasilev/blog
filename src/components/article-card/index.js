@@ -1,24 +1,21 @@
 import React from 'react'
 import styles from './index.module.css'
 
-const Article = ({ title, content, imageUrl, author, _id }) => {
+const ArticleCard = ({ title, imageUrl, author, _id }) => {
   return (
     <div className={styles.container}>      
       <p >      
-        {title}
+        <span>Author: {author.username}</span>
       </p>
       <p >      
-        {content}
-      </p>
+        <span>Title: {title}</span>
+      </p>      
       <p >      
-        {imageUrl}
-      </p>
-      <p >      
-        {author}
+      <span>Image: {imageUrl}</span>
       </p>
       <a href={`/article/${_id}`}>See more</a>
     </div>
   )
 }
 
-export default Article
+export default ArticleCard
