@@ -15,8 +15,7 @@ const Article = ({ title, content, imageUrl, author, _id }) => {
       </p>
       <p >      
         {author}
-      </p>
-      <a href={`/article/${_id}`}>See more</a>
+      </p>      
     </div>
   )
 }

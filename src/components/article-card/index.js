@@ -1,7 +1,10 @@
 import React from 'react'
+import Link from '../link'
 import styles from './index.module.css'
 
+
 const ArticleCard = ({ title, imageUrl, author, _id }) => {
+  const linkHref = `/article/${_id}`
   return (
     <div className={styles.container}>      
       <p >      
@@ -13,7 +16,11 @@ const ArticleCard = ({ title, imageUrl, author, _id }) => {
       <p >      
       <span>Image: {imageUrl}</span>
       </p>
-      <a href={`/article/${_id}`}>See more</a>
+      <Link 
+      key='single-article'
+      href={linkHref}
+      title='See more...'
+      />
     </div>
   )
 }
