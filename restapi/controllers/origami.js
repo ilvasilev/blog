@@ -28,9 +28,9 @@ module.exports = {
 
     post: (req, res, next) => {        
         const { title, content, imageUrl } = req.body;
-        const { _id } = req.user;        
+        const { _id, username } = req.user;
 
-        models.Origami.create({ title, content, imageUrl, author: _id })
+        models.Origami.create({ title, content, imageUrl, createdBy: username, author: _id })
             .then((createdOrigami) => {
                 return Promise.all([
                     models.User.updateOne({ _id }, { $push: { posts: createdOrigami } }),

@@ -61,26 +61,21 @@ class SingleArticle extends Component {
         comment,
         articleId      
       }),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': getCookie('x-auth-token')
-      }
+      headers: { 'Content-Type': 'application/json', 'Authorization': getCookie('x-auth-token')}
+    }).then((data) => {
+      this.componentDidMount()      
     })
   }
 
   renderComments() {
     const { comments } = this.state
-    console.log (comments);
 
     return comments.map((comment, index) => {      
       return (
         <CommentComponent key={comment._id} index={index} {...comment} />
       )
-    })
-    
+    })    
   }
-
-
 
   render() {
     const {comment} = this.state

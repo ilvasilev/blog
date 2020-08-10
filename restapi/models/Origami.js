@@ -31,6 +31,10 @@ const origamiSchema = new Schema({
         ref: "User"
     },
 
+    createdBy: {
+        type: String
+    },
+
     comments: [{
         type: ObjectId,
         ref: "Comment"
