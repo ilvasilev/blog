@@ -10,11 +10,9 @@ module.exports = {
 
     post: (req, res, next) => {
         const { comment, articleId } = req.body;
-        const { _id } = req.user;
-        console.log ('userID: ', _id)
-        console.log ('articleId: ', articleId)    
+        const { _id, username } = req.user;               
 
-        models.Comment.create({ comment, author: _id })
+        models.Comment.create({ comment, createdBy: username, author: _id })
             .then((createdComment) => {
                 return Promise.all([
                     models.Origami.updateOne({ _id: articleId }, { $push: { comments: createdComment } }),

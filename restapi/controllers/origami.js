@@ -3,8 +3,8 @@ const { model } = require('mongoose');
 
 module.exports = {
     get: {
-      getAll:  (req, res, next) => {
-      const length = req.query.length ? parseInt(req.query.length) : 20
+      getAll:  (req, res, next) => {        
+        const length = req.query.length ? parseInt(req.query.length) : 20
         models.Origami.find().sort('-created_at').limit(length).populate('author')
             .then((origamies) => res.send(origamies))
             .catch(next);
@@ -15,13 +15,20 @@ module.exports = {
         models.Origami.findById(id).populate('author').lean()
         .then((single) => res.send(single))
         .catch(next)
+    },
+    getComments: (req, res, next) => {
+        const { id } = req.params
+        
+        models.Origami.findById(id)
+            .populate('comments')      
+            .then((resp) => res.send(resp))
+            .catch((err) => res.status(500).send("Error"))
     }
     },
 
     post: (req, res, next) => {        
         const { title, content, imageUrl } = req.body;
-        const { _id } = req.user;
-        console.log (req.user)
+        const { _id } = req.user;        
 
         models.Origami.create({ title, content, imageUrl, author: _id })
             .then((createdOrigami) => {
@@ -30,7 +37,7 @@ module.exports = {
                     models.Origami.findOne({ _id: createdOrigami._id })
                 ]);
             })
-            .then(([modifiedObj, origamiObj]) => {
+            .then(([modifiedObj, origamiObj]) => {                
                 res.send(origamiObj);
             })
             .catch(next);

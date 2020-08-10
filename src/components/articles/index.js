@@ -22,10 +22,8 @@ class Articles extends Component {
   }
 
   renderArticles() {
-    const { articles } = this.state
-    console.log(articles) 
-    return articles.map((article, index) => {
-      console.log('aA', article)
+    const { articles } = this.state    
+    return articles.map((article, index) => {      
       return (
         <ArticleCard key={article._id} index={index} {...article} />
       )

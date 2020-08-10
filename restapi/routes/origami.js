@@ -6,6 +6,8 @@ router.get('/', controllers.origami.get.getAll);
 
 router.get('/:id', controllers.origami.get.getSingle);
 
+router.get('/:id/comments', controllers.origami.get.getComments);
+
 router.post('/', auth(), controllers.origami.post);
 
 router.put('/:id', auth(), controllers.origami.put);

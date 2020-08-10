@@ -19,6 +19,10 @@ const commentSchema = new Schema({
         ref: "User"
     },
 
+    createdBy: {
+        type: String
+    },
+
     article: {
         type: ObjectId,
         ref: "Origami"

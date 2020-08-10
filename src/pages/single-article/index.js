@@ -8,6 +8,7 @@ import SubmitButton from '../../components/button'
 import authenticate from '../../utils/authenticate/authenticate'
 import UserContext from '../../Context'
 import getCookie from '../../utils/cookie'
+import CommentComponent from '../../components/single-comment'
 
 class SingleArticle extends Component {
   constructor(props) {
@@ -17,7 +18,8 @@ class SingleArticle extends Component {
       singleArticle: {},
       author: '',
       comment: '',
-      articleId: ''
+      articleId: '',
+      comments: []
     }
   }
 
@@ -27,12 +29,18 @@ class SingleArticle extends Component {
     const articleId = this.props.match.params.articleid    
     
     const promise = await fetch(`http://localhost:9999/api/origami/${articleId}`)
+
+    const commentPromise = await fetch(`http://localhost:9999/api/origami/${articleId}/comments`)
+
     const singleArticle = await promise.json()
+
+    const allComments = await commentPromise.json()   
     
     this.setState ({
       singleArticle: singleArticle,
       author: singleArticle.author.username,
-      articleId
+      articleId,
+      comments: allComments.comments
     })    
   }
 
@@ -60,6 +68,18 @@ class SingleArticle extends Component {
     })
   }
 
+  renderComments() {
+    const { comments } = this.state
+    console.log (comments);
+
+    return comments.map((comment, index) => {      
+      return (
+        <CommentComponent key={comment._id} index={index} {...comment} />
+      )
+    })
+    
+  }
+
 
 
   render() {
@@ -82,6 +102,7 @@ class SingleArticle extends Component {
           />          
           <SubmitButton title='Share' />
           </form>
+          {this.renderComments()}
         </div>        
       </Wrapper> 
     )

@@ -7,7 +7,7 @@ class ProfilePage extends Component {
     super(props)
 
     this.state = {
-      username: null,
+      user: null,
       posts: null,
       postPerUser: []
     }
@@ -18,12 +18,13 @@ class ProfilePage extends Component {
   }
 
   getUser = async (id) => {
-    const response = await fetch(`http://localhost:9999/api/user?id=${id}`)    
+    const response = await fetch(`http://localhost:9999/api/user?id=${id}`)   
     if(!response.ok) {
       this.props.history.push('/error')
     }
 
-    const user = await response.json()    
+    const user = await response.json()
+    
     this.setState({
       username: user.username,
       posts: user.posts && user.posts.length,
@@ -33,6 +34,7 @@ class ProfilePage extends Component {
 
   renderPosts() {
     const { postPerUser } = this.state
+    console.log (postPerUser)
     return postPerUser.map((posts, index) => {
       return (
         <ArticleCard key={posts._id} index={index} {...posts} />

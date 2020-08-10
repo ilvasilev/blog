@@ -36,18 +36,12 @@ class RegisterPage extends Component {
 
     await fetch('http://localhost:9999/api/origami', {
       method: 'POST',
-      body: JSON.stringify({
-        title,
-        content,
-        imageUrl
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': getCookie('x-auth-token')
-      }
+      body: JSON.stringify({ title, content, imageUrl }),
+      headers: { 'Content-Type': 'application/json', 'Authorization': getCookie('x-auth-token')}
+    }).then(response => response.json())
+    .then((data) => {      
+      this.props.history.push(`/article/${data._id}`)
     })
-
-
   }
 
   render() {
