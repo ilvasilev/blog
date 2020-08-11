@@ -24,5 +24,13 @@ module.exports = {
                 res.send(commentObj);
             })
             .catch(next);
-    }
+    },
+
+    put: (req, res, next) => {
+        const id = req.body.commentId;
+
+        models.Comment.findByIdAndUpdate( id , { $inc: {like : 1}})
+            .then((updatedOrigami) => res.send(updatedOrigami))
+            .catch(next)
+    },
 };

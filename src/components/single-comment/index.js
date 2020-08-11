@@ -1,21 +1,56 @@
 import React, { Component } from 'react'
 import styles from './index.module.css'
 import { Link } from 'react-router-dom'
+import SubmitButton from '../../components/button'
+import getCookie from '../../utils/cookie'
+class CommentComponent extends Component {
 
-const CommentComponent = ({ comment, createdBy, like, _id }) => {
-  return (
-    <div className={styles.container}>
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      likes: this.props.like
+    }
+    
+  } 
+
+  handleClick = async (event) => {
+    event.preventDefault()    
+    const commentId = this.props._id
+    
+    
+   const response = await fetch('http://localhost:9999/api/comment', {
+      method: 'PUT',
+      body: JSON.stringify({ commentId }),
+      headers: { 'Content-Type': 'application/json', 'Authorization': getCookie('x-auth-token')}
+    })
+
+    const data = await response.json()
+    
+    this.setState({
+      likes: data.like
+    })
+  }  
+
+  render() {
+    return (
+      <div className={styles.container}>
     <p>
-        {createdBy}
+        {this.props.createdBy}
     </p>
     <p>
-        {comment}
+        {this.props.comment}
     </p>
     <p>
-        <span>Likes: {like}</span>
+        <span>Likes: {this.state.likes}</span>
+    </p>
+    <p>
+    <button type='submit' onClick={this.handleClick}>sczc</button>
     </p>
     </div>
-  )
+    )
+  }
+  
 }
 
 export default CommentComponent

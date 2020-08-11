@@ -19,8 +19,8 @@ module.exports = {
     getComments: (req, res, next) => {
         const { id } = req.params
         
-        models.Origami.findById(id)
-            .populate('comments')      
+        models.Origami.findById(id)            
+            .populate({path: 'comments', options: { sort: { 'created_at': -1 } } })            
             .then((resp) => res.send(resp))
             .catch((err) => res.status(500).send("Error"))
     }

@@ -6,4 +6,6 @@ router.get('/', controllers.comment.get);
 
 router.post('/', auth(), controllers.comment.post);
 
+router.put('/', auth(), controllers.comment.put)
+
 module.exports = router;
