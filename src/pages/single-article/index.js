@@ -41,7 +41,9 @@ class SingleArticle extends Component {
       author: singleArticle.author.username,
       articleId,
       comments: allComments.comments
-    })    
+    })
+
+    console.log (this.state.singleArticle.content)
   }
 
   handleChange = (event, type) => {
@@ -75,7 +77,7 @@ class SingleArticle extends Component {
         <CommentComponent key={comment._id} index={index} {...comment} />
       )
     })    
-  }
+  }  
 
   render() {
     const {comment} = this.state
@@ -84,7 +86,7 @@ class SingleArticle extends Component {
         <Title title={this.state.singleArticle.title} />
         <div className={styles.container}>
         <Article        
-        comment={this.state.singleArticle.comment}
+        content={this.state.singleArticle.content}
         imageUrl={this.state.singleArticle.imageUrl}
         author={this.state.author}
         />        

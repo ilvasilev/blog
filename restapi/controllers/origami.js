@@ -52,7 +52,7 @@ module.exports = {
     },
 
     delete: (req, res, next) => {
-        const id = req.params.id;
+        const id = req.body.articleId;
         models.Origami.deleteOne({ _id: id })
             .then((removedOrigami) => res.send(removedOrigami))
             .catch(next)
