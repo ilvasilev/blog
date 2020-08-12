@@ -13,8 +13,11 @@ class Article extends Component {
 
   static contextType = UserContext
   
-  editArticle() {
-    console.log('edit')
+  editArticle = async (e) => {
+    e.preventDefault()
+    const articleId = (window.location.href).split('/')[4]
+
+    this.props.history.push(`/editarticle/${articleId}`)
   }
 
   deleteArticle = async (e) => {
@@ -38,7 +41,7 @@ class Article extends Component {
   
   users() {
     const { user } = this.context
-    const loggedIn = user && user.loggedIn
+    const loggedIn = user && user.loggedIn    
     
     if(loggedIn) {      
       return([
