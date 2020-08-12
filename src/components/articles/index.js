@@ -36,7 +36,7 @@ class Articles extends Component {
 
   render() {
     return (
-      <div >
+      <div className={styles.container} >
         {this.renderArticles()}
       </div>
     )

@@ -43,7 +43,7 @@ class Article extends Component {
     const { user } = this.context
     const loggedIn = user && user.loggedIn    
     
-    if(loggedIn) {      
+    if(loggedIn && this.props.authorId === user.id) {      
       return([
       <SubmitButton clicked={this.editArticle} key='submit' title='Edit article' />,
       <SubmitButton clicked={this.deleteArticle} key='delete' title='Delete article' />
@@ -53,18 +53,15 @@ class Article extends Component {
 
   render() {
     return(
-      <div className={styles.container}>      
+      <div className={styles.container}>        
       <p >      
         {this.props.title}
       </p>
+      <p>      
+        {this.props.author}
+      </p>      
       <p >      
         {this.props.content}
-      </p>
-      <p >      
-        {this.props.imageUrl}
-      </p>
-      <p >      
-        {this.props.author}
       </p>      
       {this.users()}
     </div>

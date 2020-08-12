@@ -19,7 +19,8 @@ class SingleArticle extends Component {
       author: '',
       comment: '',
       articleId: '',
-      comments: []
+      comments: [],
+      authorId: ''
     }
   }
 
@@ -32,7 +33,7 @@ class SingleArticle extends Component {
 
     const commentPromise = await fetch(`http://localhost:9999/api/origami/${articleId}/comments`)
 
-    const singleArticle = await promise.json()
+    const singleArticle = await promise.json()    
 
     const allComments = await commentPromise.json()   
     
@@ -40,10 +41,9 @@ class SingleArticle extends Component {
       singleArticle: singleArticle,
       author: singleArticle.author.username,
       articleId,
-      comments: allComments.comments
-    })
-
-    console.log (this.state.singleArticle.content)
+      comments: allComments.comments,
+      authorId: singleArticle.author._id
+    })    
   }
 
   handleChange = (event, type) => {
@@ -83,14 +83,16 @@ class SingleArticle extends Component {
     const {comment} = this.state
     return (
       <Wrapper>
+        <img className={styles.banner} src={this.state.singleArticle.imageUrl}></img>
+        <div className={styles.container}>          
         <Title title={this.state.singleArticle.title} />
-        <div className={styles.container}>
         <Article        
         content={this.state.singleArticle.content}
         imageUrl={this.state.singleArticle.imageUrl}
         author={this.state.author}
+        authorId={this.state.authorId}
         />        
-        <form className={styles.container} onSubmit={this.handleSubmit}>          
+        <form onSubmit={this.handleSubmit}>          
           <Input
           value={comment}
           onChange={(e) => this.handleChange(e, 'comment')}

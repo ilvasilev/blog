@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Wrapper from '../../components/wrapper'
 import ArticleCard  from '../../components/article-card'
+import UserContext from '../../Context'
+import getCookie from '../../utils/cookie'
 
 class ProfilePage extends Component {
   constructor(props) {
@@ -13,8 +15,10 @@ class ProfilePage extends Component {
     }
   }
 
+  static contextType = UserContext
+
   componentDidMount() {
-    this.getUser(this.props.match.params.userid)
+    this.getUser(this.props.match.params.userid)    
   }
 
   getUser = async (id) => {
@@ -34,13 +38,36 @@ class ProfilePage extends Component {
 
   renderPosts() {
     const { postPerUser } = this.state
-    console.log (postPerUser)
+    
     return postPerUser.map((posts, index) => {
       return (
         <ArticleCard key={posts._id} index={index} {...posts} />
       )
     })
      
+  }
+
+  logOut = () => {
+    this.context.logOut()
+    this.props.history.push('/')
+  }
+
+  users() {
+    const { username, posts } = this.state
+
+    const { user } = this.context
+
+    const loggedIn = user && user.loggedIn
+
+    const authorId = (window.location.href).split('/')[4]    
+    
+    if(loggedIn && user.id === authorId) {      
+      return([
+        <p key='User'>User: {username}</p>,
+        <p key='posts'>Posts: {posts}</p>,
+        <button onClick={this.logOut}>Logout</button>
+      ])
+    }
   }
 
   render() {
@@ -64,8 +91,7 @@ class ProfilePage extends Component {
     return (
       <Wrapper>
         <div>
-          <p>User: {username}</p>
-          <p>Posts: {posts}</p>
+          {this.users()}
         </div>
         {this.renderPosts()}
       </Wrapper>

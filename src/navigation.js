@@ -26,7 +26,7 @@ const Navigation = () => {
             <Route path='/login' component={LoginPage} />
             <Route path='/logout' component={HomePage} />
             <Route path='/create' component={CreateArticlePage} />
-            <Route path='/editarticle/:articleId' component={EditArticle} />
+            <Route path='/editarticle/:articleId' component={EditArticle} />            
         </Switch>
         </BrowserRouter>
     )

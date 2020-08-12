@@ -1,8 +1,6 @@
 .container {
-    display: inline-block;
-    border: 1px solid #2b415433;
-    background: white;
-    width: 23%;
+    display: inline-block;    
+    width: 50%;
     vertical-align: top;
 }
 

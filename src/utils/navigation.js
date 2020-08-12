@@ -12,7 +12,7 @@ const getNavigation = (user) => {
       {
         title: "Profile",
         link: `/profile/${user && user.id}`
-      }
+      }      
     ]
   
     const guestLinks = [

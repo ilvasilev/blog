@@ -5,10 +5,16 @@
   }
 
 .area-input {
+  text-align: center;
   color: grey;
-  width: 500px;
+  width: 50%;
   height: 50px;
   padding-left: 20px;
+  outline: 0;
+  border-width: 0 0 1px;
+  border-color: grey;
+  background-color: rgba(90, 90, 90, 0.1);
+
 }
 
 .label-span {
