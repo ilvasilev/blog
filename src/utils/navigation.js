@@ -12,6 +12,10 @@ const getNavigation = (user) => {
       {
         title: "Profile",
         link: `/profile/${user && user.id}`
+      },
+      {
+        title: 'Users',
+        link: '/users'
       }      
     ]
   
@@ -27,6 +31,10 @@ const getNavigation = (user) => {
       {
         title: "Login",
         link: "/login"
+      },
+      {
+        title: 'Users',
+        link: '/users'
       }
     ]
   

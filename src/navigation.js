@@ -12,6 +12,7 @@ import LoginPage from './pages/login'
 import CreateArticlePage from './pages/create-article'
 import SingleArticle from './pages/single-article'
 import EditArticle from './pages/edit-article'
+import Users from './pages/users'
 
 
 const Navigation = () => {
@@ -26,7 +27,8 @@ const Navigation = () => {
             <Route path='/login' component={LoginPage} />
             <Route path='/logout' component={HomePage} />
             <Route path='/create' component={CreateArticlePage} />
-            <Route path='/editarticle/:articleId' component={EditArticle} />            
+            <Route path='/editarticle/:articleId' component={EditArticle} />
+            <Route path='/users' component={Users} />          
         </Switch>
         </BrowserRouter>
     )

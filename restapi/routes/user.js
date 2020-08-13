@@ -1,7 +1,9 @@
 const controllers = require('../controllers/');
 const router = require('express').Router();
 
-router.get('/', controllers.user.get);
+router.get('/', controllers.user.get.getUser);
+
+router.get('/users', controllers.user.get.getUsers);
 
 router.post('/register', controllers.user.post.register);
 

@@ -10,7 +10,7 @@ class HomePage extends Component {
   render () {    
     return (
         <Wrapper>
-          <Title title={'Home page'} />
+          <Title title='Home page' />
           <Articles />  
         </Wrapper>
     )
