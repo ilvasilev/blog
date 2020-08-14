@@ -11,7 +11,7 @@ module.exports = {
             .catch((err) => res.status(500).send("Error"))
         },
         getUsers: (req, res, next) => {
-            models.User.find()
+            models.User.find().sort('username')
             .then((users) => res.send(users))
             .catch(next);
         }

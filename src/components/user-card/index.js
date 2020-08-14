@@ -7,11 +7,13 @@ class UserCard extends Component {
         super(props)
     
         this.state = {
-          users: []
+          users: [],
+          sortValue: ''        
         }
       }
 
       renderUsers = async () => {
+        const {keyword, ascOrDesc} = this.state
         const promise = await fetch(`http://localhost:9999/api/user/users`)
         const users = await promise.json()
 
@@ -27,7 +29,17 @@ class UserCard extends Component {
       renderTable() {          
           const users = this.state.users
           console.log(users)
-          return users.map((user, index) => {
+          return users
+          .sort((a, b) => {
+              if (this.state.sortValue === 'posts') {
+                  return b.posts.length - a.posts.length
+              } else if (this.state.sortValue === 'comments') {
+                return b.comments.length - a.comments.length
+              } 
+                return a.username.localeCompare(b.username)
+                           
+          })
+          .map((user, index) => {
               return(
                 <Fragment>
                 <tr>
@@ -40,15 +52,21 @@ class UserCard extends Component {
           })
       }
 
+      updateSortValue (value) {
+          this.setState ({
+              sortValue: value
+          })
+      }
+
       render() {
           return(
             <div className={styles.container}>
             <table className={styles['user-table']}>
                 <thead>
                 <tr className={styles['table-head']}>
-                    <th className={styles['table-box']}>Username</th>
-                    <th className={styles['table-box']}>Articles</th>
-                    <th className={styles['table-box']}>Comments</th>
+                    <th className={styles['table-box']}><Link onClick={() => this.updateSortValue('users')}>Sort by username</Link></th>
+                    <th className={styles['table-box']}><Link onClick={() => this.updateSortValue('posts')}>Sort by number of articles</Link></th>
+                    <th className={styles['table-box']}><Link onClick={() => this.updateSortValue('comments')}>Sort by number of comments</Link></th>
                 </tr>
                 </thead>
                 <tbody>                    
