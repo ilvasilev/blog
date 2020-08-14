@@ -11,17 +11,18 @@ const authenticate = async (url, body, onSuccess, onFailure) => {
       document.cookie = `x-auth-token=${authToken}`
   
       const response = await promise.json()
+      console.log(response)    
   
       if (response.username && authToken) {
         onSuccess({
           username: response.username,
           id: response._id
         })
-      } else {
-        onFailure()
+      } else {        
+        onFailure(response.errors)
       }
     } catch(e) {
-      onFailure(e)
+      console.log('here2')
     }
   }
   

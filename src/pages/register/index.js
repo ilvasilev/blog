@@ -6,6 +6,7 @@ import Input from '../../components/input'
 import SubmitButton from '../../components/button'
 import authenticate from '../../utils/authenticate/authenticate'
 import UserContext from '../../Context'
+import ErrorMessage from '../../components/error-message'
 
 class RegisterPage extends Component {
 
@@ -15,7 +16,8 @@ class RegisterPage extends Component {
     this.state = {
       username: '',
       password: '',
-      rePassword: ''
+      rePassword: '',
+      errorMsg: ''
     }
   }
 
@@ -39,8 +41,8 @@ class RegisterPage extends Component {
       }, (user) => {     
         this.context.logIn(user)   
         this.props.history.push('/')
-      }, (e) => {
-        console.log('Error', e)
+      }, (err) => {
+        this.setState({errorMsg: err})
       }
     )   
   }
@@ -52,6 +54,7 @@ class RegisterPage extends Component {
         <Wrapper>
           <form className={styles.container} onSubmit={this.handleSubmit}>
           <Title title={'Register page'} />
+          <ErrorMessage message={this.state.errorMsg} />
           <Input
           value={username}
           onChange={(e) => this.handleChange(e, 'username')}
@@ -73,7 +76,7 @@ class RegisterPage extends Component {
           id='re-password'
           />
           <SubmitButton title='Register' />
-          </form>
+          </form>    
         </Wrapper>
         
     )

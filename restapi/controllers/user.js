@@ -26,8 +26,8 @@ module.exports = {
                   res.header("Authorization", token).send(createdUser);
                 })
                 .catch((err) => {
-
-                  console.log(err)
+                    res.status(400)
+                    res.json({errors: ['User already exist']})
                 })
         },
 
