@@ -7,6 +7,7 @@ import SubmitButton from '../../components/button'
 import authenticate from '../../utils/authenticate/authenticate'
 import UserContext from '../../Context'
 import getCookie from '../../utils/cookie'
+import ErrorMessage from '../../components/error-message'
 
 class CreateArticle extends Component {
 
@@ -16,7 +17,8 @@ class CreateArticle extends Component {
     this.state = {
       title: '',
       content: '',
-      imageUrl: ''        
+      imageUrl: '',
+      errorMsg: ''       
     }
   }
 
@@ -34,14 +36,21 @@ class CreateArticle extends Component {
 
     const {title, content, imageUrl} = this.state
 
-    await fetch('http://localhost:9999/api/origami', {
-      method: 'POST',
-      body: JSON.stringify({ title, content, imageUrl }),
-      headers: { 'Content-Type': 'application/json', 'Authorization': getCookie('x-auth-token')}
-    }).then(response => response.json())
-    .then((data) => {      
-      this.props.history.push(`/article/${data._id}`)
-    })
+    if (title && content && imageUrl) {
+      await fetch('http://localhost:9999/api/origami', {
+        method: 'POST',
+        body: JSON.stringify({ title, content, imageUrl }),
+        headers: { 'Content-Type': 'application/json', 'Authorization': getCookie('x-auth-token')}
+      }).then(response => response.json())
+      .then((data) => {      
+        this.props.history.push(`/article/${data._id}`)
+      })
+    }
+
+    this.setState ({errorMsg: 'One or more fields are missing'})
+
+    return
+
   }
 
   openWidget = (e) => {
@@ -67,6 +76,7 @@ class CreateArticle extends Component {
     
     return (
         <Wrapper>
+          <ErrorMessage message={this.state.errorMsg} />
           <form className={styles.container} onSubmit={this.handleSubmit}>
           <Title title={'create'} />
           <Input

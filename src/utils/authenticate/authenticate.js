@@ -10,8 +10,7 @@ const authenticate = async (url, body, onSuccess, onFailure) => {
       const authToken = promise.headers.get('Authorization')
       document.cookie = `x-auth-token=${authToken}`
   
-      const response = await promise.json()
-      console.log(response)    
+      const response = await promise.json()      
   
       if (response.username && authToken) {
         onSuccess({
@@ -22,7 +21,7 @@ const authenticate = async (url, body, onSuccess, onFailure) => {
         onFailure(response.errors)
       }
     } catch(e) {
-      console.log('here2')
+            
     }
   }
   

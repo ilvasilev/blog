@@ -7,6 +7,7 @@ import SubmitButton from '../../components/button'
 import authenticate from '../../utils/authenticate/authenticate'
 import UserContext from '../../Context'
 import ErrorMessage from '../../components/error-message'
+import ReCAPTCHA from "react-google-recaptcha";
 
 class RegisterPage extends Component {
 
@@ -17,7 +18,8 @@ class RegisterPage extends Component {
       username: '',
       password: '',
       rePassword: '',
-      errorMsg: ''
+      errorMsg: '',
+      token: ''
     }
   }
 
@@ -33,18 +35,29 @@ class RegisterPage extends Component {
   handleSubmit = async (event) => {
     event.preventDefault()
 
-    const {username, password} = this.state
+    const {username, password, rePassword, token} = this.state    
 
-    await authenticate('http://localhost:9999/api/user/register', {
-        username,
-        password
-      }, (user) => {     
-        this.context.logIn(user)   
-        this.props.history.push('/')
-      }, (err) => {
-        this.setState({errorMsg: err})
-      }
-    )   
+    if (username && token && password === rePassword) {
+      await authenticate('http://localhost:9999/api/user/register', {
+          username,
+          password,
+          token
+        }, (user) => {     
+          this.context.logIn(user)   
+          this.props.history.push('/')
+        }, (err) => {
+          this.setState({errorMsg: err})
+        }
+      )
+    }
+    this.setState ({errorMsg: 'One or more fields are missing or password not match'})
+    return
+  }
+
+  recaptchaSubmit = async (value) => {    
+    if(value) {
+      this.setState({token: value})
+    }  
   }
 
   render() {
@@ -52,9 +65,9 @@ class RegisterPage extends Component {
     
     return (
         <Wrapper>
+          <ErrorMessage message={this.state.errorMsg} />
           <form className={styles.container} onSubmit={this.handleSubmit}>
           <Title title={'Register page'} />
-          <ErrorMessage message={this.state.errorMsg} />
           <Input
           value={username}
           onChange={(e) => this.handleChange(e, 'username')}
@@ -76,7 +89,11 @@ class RegisterPage extends Component {
           id='re-password'
           />
           <SubmitButton title='Register' />
-          </form>    
+          </form>
+          <ReCAPTCHA          
+          sitekey="6LdHJb8ZAAAAABLi0nwYhHIZK7R2GUl491DRGrSI"
+          onChange={this.recaptchaSubmit}
+          /> 
         </Wrapper>
         
     )

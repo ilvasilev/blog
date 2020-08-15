@@ -1,6 +1,7 @@
 const models = require('../models');
 const config = require('../config/config');
 const utils = require('../utils');
+const fetch = require('node-fetch');
 
 module.exports = {
     get: {
@@ -19,16 +20,33 @@ module.exports = {
 
     post: {
         register: (req, res, next) => {
-            const { username, password } = req.body;
-            models.User.create({ username, password })
-                .then((createdUser) => {
-                  const token = utils.jwt.createToken({ id: createdUser._id });
-                  res.header("Authorization", token).send(createdUser);
+            const { username, password, token } = req.body;
+
+            function reCaptchaResult() {                
+                const secret = '6LdHJb8ZAAAAAPQcH-Gxh3DHWd4oSP08olZgRjP_'
+                const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`
+                fetch(url, {method: "POST"})
+                .then(res => res.json())
+                .then(json => {
+                    console.log(json.success)
+                    if (json.success) {
+                        models.User.create({ username, password })
+                        .then((createdUser) => {
+                            const token = utils.jwt.createToken({ id: createdUser._id });
+                            res.header("Authorization", token).send(createdUser);
+                        })
+                        .catch((err) => {
+                            res.status(400)
+                            res.json({errors: ['User already exist']})
                 })
-                .catch((err) => {
-                    res.status(400)
-                    res.json({errors: ['User already exist']})
-                })
+                    } else {
+                        res.status(400)
+                        res.json({errors: ['User is bot']})
+                    }                    
+                });     
+            }
+            
+            reCaptchaResult()            
         },
 
         verifyLogin: (req, res, next) => {
