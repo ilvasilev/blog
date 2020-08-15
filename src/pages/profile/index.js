@@ -76,17 +76,13 @@ class ProfilePage extends Component {
       posts
     } = this.state
 
-
-
     if(!username) {
       return (
         <Wrapper>
           <div>Loading....</div>
         </Wrapper>
       )
-    }
-
-    
+    }   
 
     return (
       <Wrapper>

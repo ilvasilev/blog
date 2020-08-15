@@ -25,6 +25,7 @@ class RegisterPage extends Component {
 
   static contextType = UserContext
 
+  //onChange handler
   handleChange = (event, type) => {
     const newState = {}
     newState[type] = event.target.value
@@ -32,6 +33,7 @@ class RegisterPage extends Component {
     this.setState(newState)
   }
 
+  //onSubmit handler, fetch data to the backend, validates if form is filled correctly
   handleSubmit = async (event) => {
     event.preventDefault()
 
@@ -54,6 +56,7 @@ class RegisterPage extends Component {
     return
   }
 
+  //Recaptcha submit handler, generates token
   recaptchaSubmit = async (value) => {    
     if(value) {
       this.setState({token: value})
@@ -66,7 +69,7 @@ class RegisterPage extends Component {
     return (
         <Wrapper>
           <ErrorMessage message={this.state.errorMsg} />
-          <form className={styles.container} onSubmit={this.handleSubmit}>
+          <form className={styles.form} onSubmit={this.handleSubmit}>
           <Title title={'Register page'} />
           <Input
           value={username}
@@ -88,12 +91,14 @@ class RegisterPage extends Component {
           label='Re Password'
           id='re-password'
           />
-          <SubmitButton title='Register' />
-          </form>
+          <div className={styles.container}>
           <ReCAPTCHA          
           sitekey="6LdHJb8ZAAAAABLi0nwYhHIZK7R2GUl491DRGrSI"
           onChange={this.recaptchaSubmit}
-          /> 
+          />
+          </div>
+          <SubmitButton title='Register' />
+          </form>
         </Wrapper>
         
     )

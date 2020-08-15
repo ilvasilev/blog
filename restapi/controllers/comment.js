@@ -29,7 +29,7 @@ module.exports = {
     put: (req, res, next) => {
         const id = req.body.commentId;
 
-        models.Comment.findByIdAndUpdate( id , { $inc: {like : 1}})
+        models.Comment.findByIdAndUpdate( id , { $inc: {like : 1}}, {new: true})
             .then((updatedOrigami) => res.send(updatedOrigami))
             .catch(next)
     },

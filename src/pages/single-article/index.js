@@ -20,7 +20,8 @@ class SingleArticle extends Component {
       comment: '',
       articleId: '',
       comments: [],
-      authorId: ''
+      authorId: '',
+      rating: 0
     }
   }
 
@@ -65,6 +66,9 @@ class SingleArticle extends Component {
       }),
       headers: { 'Content-Type': 'application/json', 'Authorization': getCookie('x-auth-token')}
     }).then((data) => {
+      this.setState({
+        comment: ''
+      })
       this.componentDidMount()      
     })
   }
@@ -91,6 +95,7 @@ class SingleArticle extends Component {
         imageUrl={this.state.singleArticle.imageUrl}
         author={this.state.author}
         authorId={this.state.authorId}
+        rating={this.state.rating}
         />        
         <form onSubmit={this.handleSubmit}>          
           <Input

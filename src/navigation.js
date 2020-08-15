@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {
     BrowserRouter,
     Switch,
-    Route
+    Route,
+    Redirect
 } from 'react-router-dom'
 import HomePage from './pages/home-page'
 import Publications from './pages/publications'
@@ -13,9 +14,13 @@ import CreateArticlePage from './pages/create-article'
 import SingleArticle from './pages/single-article'
 import EditArticle from './pages/edit-article'
 import Users from './pages/users'
+import UserContext from './Context'
 
 
 const Navigation = () => {
+    const context = useContext(UserContext)
+    const loggedIn = context.user.loggedIn
+
     return (
         <BrowserRouter>
         <Switch>
@@ -23,11 +28,18 @@ const Navigation = () => {
             <Route path='/publications' component={Publications} />
             <Route path='/profile/:userid' component={ProfilePage} />
             <Route path='/article/:articleid' component={SingleArticle} />
-            <Route path='/register' component={RegisterPage} />
-            <Route path='/login' component={LoginPage} />
-            <Route path='/logout' component={HomePage} />
-            <Route path='/create' component={CreateArticlePage} />
-            <Route path='/editarticle/:articleId' component={EditArticle} />
+            <Route path='/register'>
+                {loggedIn ? (<Redirect to="/" />) : (<RegisterPage />) }
+            </Route>
+            <Route path='/login'>
+                {loggedIn ? (<Redirect to="/" />) : (<LoginPage />) }
+            </Route>            
+            <Route path='/create'>
+                {loggedIn ? (<CreateArticlePage />) : (<Redirect to="/login" />) }
+            </Route>
+            <Route path='/editarticle/:articleId'>
+                {loggedIn ? (<EditArticle />) : (<Redirect to="/login" />) }
+            </Route>
             <Route path='/users' component={Users} />          
         </Switch>
         </BrowserRouter>

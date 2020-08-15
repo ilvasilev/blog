@@ -43,12 +43,23 @@ module.exports = {
             .catch(next);
     },
 
-    put: (req, res, next) => {
-        const id = req.params.id;
-        const { title, content, imageUrl } = req.body;
-        models.Origami.updateOne({ _id: id }, { title, content, imageUrl })
-            .then((updatedOrigami) => res.send(updatedOrigami))
-            .catch(next)
+    put: {
+        updateArticle: (req, res, next) => {            
+            const id = req.params.id;
+            const { title, content, imageUrl } = req.body;
+            models.Origami.updateOne({ _id: id }, { title, content, imageUrl })
+                .then((updatedOrigami) => res.send(updatedOrigami))
+                .catch(next)
+    },
+        updateRating: (req, res, next) => {
+            const id = req.params.id;
+            const {value} = req.body
+            console.log(value)                     
+
+            models.Origami.findByIdAndUpdate( id, {rating: value}, {new: true} )
+                .then((updatedOrigami) => res.send(updatedOrigami))
+                .catch(next)
+    }        
     },
 
     delete: (req, res, next) => {

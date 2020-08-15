@@ -4,12 +4,17 @@ import UserContext from '../../Context'
 import SubmitButton from '../button'
 import getCookie from '../../utils/cookie'
 import { withRouter } from "react-router"
-
+import starImg from '../../images/star.svg'
+import { Link } from 'react-router-dom'
 
 class Article extends Component {
   constructor(props) {
     super(props)
-  }  
+
+    this.state = {
+      rating: this.props.rating
+    }
+  }
 
   static contextType = UserContext
   
@@ -51,19 +56,45 @@ class Article extends Component {
     }
   }
 
+  handleClick = async (value) => {   
+  const articleId = (window.location.href).split('/')[4] 
+
+  await fetch(`http://localhost:9999/api/origami/rating/${articleId}`, {
+      method: 'PUT',
+      body: JSON.stringify({ value }),
+      headers: { 'Content-Type': 'application/json', 'Authorization': getCookie('x-auth-token')}
+    }).then(response => response.json())
+    .then((data) => {      
+      this.setState({
+        rating: data.rating
+      })
+    })
+    
+    
+  } 
+
+
+
   render() {
     return(
-      <div className={styles.container}>        
-      <p >      
-        {this.props.title}
-      </p>
-      <p>      
-        {this.props.author}
+      <div className={styles.container}>              
+      <p>           
+        By {this.props.author}
       </p>      
       <p >      
         {this.props.content}
       </p>      
       {this.users()}
+      <p>      
+      <Link onClick={() => this.handleClick(1)}><img src={starImg} className={styles.star}></img></Link>
+      <Link onClick={() => this.handleClick(2)}><img src={starImg} className={styles.star}></img></Link>
+      <Link onClick={() => this.handleClick(3)}><img src={starImg} className={styles.star}></img></Link>
+      <Link onClick={() => this.handleClick(4)}><img src={starImg} className={styles.star}></img></Link>
+      <Link onClick={() => this.handleClick(5)}><img src={starImg} className={styles.star}></img></Link>
+      </p>
+      <p>
+    Rating: <span>{this.state.rating}</span> out of 5 stars
+      </p>
     </div>
     )
   }

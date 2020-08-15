@@ -8,3 +8,11 @@ div.cube:hover p.name {
     background: #607588;
     color: white;
 }
+
+.star {
+    width: 25px;    
+}
+
+.star-button {
+    margin: 10px;
+}

@@ -3,6 +3,7 @@ import styles from './index.module.css'
 import { Link } from 'react-router-dom'
 import SubmitButton from '../../components/button'
 import getCookie from '../../utils/cookie'
+import thumbs from '../../images/thumbs.svg'
 class CommentComponent extends Component {
 
   constructor(props) {
@@ -45,7 +46,7 @@ class CommentComponent extends Component {
         <span>Likes: {this.state.likes}</span>
     </p>
     <p>
-    <button type='submit' onClick={this.handleClick}>sczc</button>
+    <button type='submit' onClick={this.handleClick}><img src={thumbs} className={styles.thumb}></img></button>
     </p>
     </div>
     )

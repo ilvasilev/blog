@@ -6,3 +6,8 @@
     width: 450px;
     height: auto;
 }
+
+.text-area {
+    padding: 20px 10px;
+    line-height: 28px;
+}

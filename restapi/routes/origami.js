@@ -10,7 +10,9 @@ router.get('/:id/comments', controllers.origami.get.getComments);
 
 router.post('/', auth(), controllers.origami.post);
 
-router.put('/:id', auth(), controllers.origami.put);
+router.put('/:id', auth(), controllers.origami.put.updateArticle);
+
+router.put('/rating/:id', auth(), controllers.origami.put.updateRating);
 
 router.delete('/:id', auth(), controllers.origami.delete);
 

@@ -8,6 +8,7 @@ import authenticate from '../../utils/authenticate/authenticate'
 import UserContext from '../../Context'
 import getCookie from '../../utils/cookie'
 import ErrorMessage from '../../components/error-message'
+import { withRouter } from "react-router"
 
 class CreateArticle extends Component {
 
@@ -24,6 +25,7 @@ class CreateArticle extends Component {
 
   static contextType = UserContext
 
+  //onChange handler
   handleChange = (event, type) => {
     const newState = {}
     newState[type] = event.target.value
@@ -31,6 +33,7 @@ class CreateArticle extends Component {
     this.setState(newState)
   }
 
+  //onSubmit handler
   handleSubmit = async (event) => {
     event.preventDefault()
 
@@ -53,6 +56,7 @@ class CreateArticle extends Component {
 
   }
 
+  //Cloudinary widget
   openWidget = (e) => {
     e.preventDefault()
 
@@ -60,11 +64,9 @@ class CreateArticle extends Component {
       cloudName: 'ivasilev',
       uploadPreset: 'softuniblogproject'
     }, (error, result) => {      
-      if (result.event === 'success') {
-        console.log(result)
+      if (result.event === 'success') {        
         this.setState({
-          imageUrl: result.info.url,
-          imageThumb: result.info.thumbnail_url
+          imageUrl: result.info.url          
         })
       }
     })
@@ -85,12 +87,14 @@ class CreateArticle extends Component {
           label='Title'
           id='title'
           />          
-          <Input
+          <textarea 
+          rows="15"
+          cols="120"
           value={content}
           onChange={(e) => this.handleChange(e, 'content')}
           label='Content'
           id='content'
-          /> 
+          ></textarea> 
           <p><img className={styles.imageurl} src={this.state.imageUrl}></img></p>
           <p><button onClick={this.openWidget}>Upload image</button></p>
           <SubmitButton title='Share' />
@@ -101,4 +105,4 @@ class CreateArticle extends Component {
   }
 }
 
-export default CreateArticle
+export default withRouter(CreateArticle)
