@@ -3,7 +3,7 @@ const getNavigation = (user) => {
     const authLinks = [
       {
         title: "Publications",
-        link: "/"
+        link: "/publications"
       },
       {
         title: "Create article",
@@ -16,13 +16,17 @@ const getNavigation = (user) => {
       {
         title: 'Users',
         link: '/users'
-      }      
+      },
+      {
+        title: 'Home',
+        link: '/'
+      }    
     ]
   
     const guestLinks = [
       {
         title: "Publications",
-        link: "/"
+        link: "/publications"
       },
       {
         title: "Register",
@@ -35,7 +39,11 @@ const getNavigation = (user) => {
       {
         title: 'Users',
         link: '/users'
-      }
+      },
+      {
+        title: 'Home',
+        link: '/'
+      } 
     ]
   
     const loggedIn = user && user.loggedIn

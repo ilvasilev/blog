@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import styles from './index.module.css'
 import Wrapper from '../../components/wrapper'
+import Title from '../../components/title'
 import ArticleCard  from '../../components/article-card'
 import UserContext from '../../Context'
 import getCookie from '../../utils/cookie'
@@ -38,10 +40,11 @@ class ProfilePage extends Component {
 
   renderPosts() {
     const { postPerUser } = this.state
+    console.log(postPerUser)
     
     return postPerUser.map((posts, index) => {
       return (
-        <ArticleCard key={posts._id} index={index} {...posts} />
+        <ArticleCard key={posts._id} index={index}  {...posts} />
       )
     })
      
@@ -53,7 +56,7 @@ class ProfilePage extends Component {
   }
 
   users() {
-    const { username, posts } = this.state
+    const { posts } = this.state
 
     const { user } = this.context
 
@@ -62,11 +65,9 @@ class ProfilePage extends Component {
     const authorId = (window.location.href).split('/')[4]    
     
     if(loggedIn && user.id === authorId) {      
-      return([
-        <p key='User'>User: {username}</p>,
-        <p key='posts'>Posts: {posts}</p>,
-        <button onClick={this.logOut}>Logout</button>
-      ])
+      return(
+        <p key='posts'>Posts: {posts}<br></br><button onClick={this.logOut}>Logout</button> </p>
+      )
     }
   }
 
@@ -86,10 +87,13 @@ class ProfilePage extends Component {
 
     return (
       <Wrapper>
-        <div>
-          {this.users()}
+        <Title title={this.state.username} />
+        <div className={styles.container}>
+          {this.users()}        
         </div>
+        <div className={styles.container}>          
         {this.renderPosts()}
+        </div>
       </Wrapper>
     )
   }

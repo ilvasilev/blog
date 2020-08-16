@@ -6,7 +6,7 @@ import Title from '../../components/title'
 const Publications = () => {
     return (
         <Wrapper>
-          <Title title={'Publications'} />
+          <Title title={'All blog articles'} />
           <Articles />  
         </Wrapper>
     )

@@ -11,7 +11,7 @@ class HomePage extends Component {
     return (
         <Wrapper>
           <Title title='Home page' />
-          <Articles />  
+          <Articles length='3' />  
         </Wrapper>
     )
   }

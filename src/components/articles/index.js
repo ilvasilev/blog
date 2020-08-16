@@ -13,7 +13,7 @@ class Articles extends Component {
 
   getArticles = async () => {    
     const { length } = this.props
-    const promise = await fetch(`http://localhost:9999/api/origami`)
+    const promise = await fetch(`http://localhost:9999/api/origami?length=${length}`)
     const articles = await promise.json()
        
     this.setState({

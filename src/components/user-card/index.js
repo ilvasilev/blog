@@ -43,7 +43,7 @@ class UserCard extends Component {
               return(
                 <Fragment>
                 <tr>
-                <td key={`user${user._id}`} id={`user${index}`} className={styles['table-box']}><Link to={`/profile/${user._id}`} >{user.username}</Link></td>
+                <td key={`user${user._id}`} id={`user${index}`} className={styles['table-box']}><Link className={styles['links-user']} to={`/profile/${user._id}`} >{user.username}</Link></td>
                 <td key={`posts${user._id}`} id={`posts${index}`} className={styles['table-box']}>{user.posts.length}</td>
                 <td key={`comments${user._id}`} id={`comments${index}`} className={styles['table-box']}>{user.comments.length}</td>
                 </tr>
@@ -64,9 +64,9 @@ class UserCard extends Component {
             <table className={styles['user-table']}>
                 <thead>
                 <tr className={styles['table-head']}>
-                    <th className={styles['table-box']}><Link onClick={() => this.updateSortValue('users')}>Sort by username</Link></th>
-                    <th className={styles['table-box']}><Link onClick={() => this.updateSortValue('posts')}>Sort by number of articles</Link></th>
-                    <th className={styles['table-box']}><Link onClick={() => this.updateSortValue('comments')}>Sort by number of comments</Link></th>
+                    <th className={styles['table-box']}><Link className={styles['links-sort']} onClick={() => this.updateSortValue('users')}>Sort by username</Link></th>
+                    <th className={styles['table-box']}><Link className={styles['links-sort']} onClick={() => this.updateSortValue('posts')}>Sort by number of articles</Link></th>
+                    <th className={styles['table-box']}><Link className={styles['links-sort']} onClick={() => this.updateSortValue('comments')}>Sort by number of comments</Link></th>
                 </tr>
                 </thead>
                 <tbody>                    
